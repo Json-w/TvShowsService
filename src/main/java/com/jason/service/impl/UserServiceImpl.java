@@ -27,12 +27,20 @@ public class UserServiceImpl implements UserService {
             ValueOperations<String, String> opt = redisTemplate.opsForValue();
             String uuid = UUID.randomUUID().toString();
             opt.set(uuid, loginUser.getId() + "");
+            opt.set(username, uuid);
+            return true;
         }
         return false;
     }
 
+
     @Override
     public boolean save(User user) {
         return null != userRepository.save(user);
+    }
+
+    @Override
+    public User find(String username) {
+        return userRepository.findByUsername(username);
     }
 }
