@@ -1,4 +1,4 @@
-package com.jason.service.impl;
+package com.jason.repository;
 
 import com.jason.model.User;
 import org.springframework.data.repository.CrudRepository;

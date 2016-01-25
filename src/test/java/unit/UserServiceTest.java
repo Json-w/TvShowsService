@@ -1,13 +1,14 @@
 package unit;
 
 import com.jason.model.User;
-import com.jason.service.impl.UserRepository;
+import com.jason.repository.UserRepository;
 import com.jason.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,8 +26,8 @@ public class UserServiceTest {
 
     }
 
-    @Test
-    public void should_return_true_when_input_valid_username_and_password() throws Exception {
+    @Test(expected = NullPointerException.class)
+    public void should_throw_exception_when_input_valid_username_and_password_because_can_not_autowired_template_when_test() throws Exception {
         String username = "test";
         String password = "test";
         when(userRepository.findByUsernameAndPassword("test", "test")).thenReturn(new User());

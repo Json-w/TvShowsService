@@ -1,17 +1,19 @@
 package com.jason.controller;
 
+import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+@RequestMapping("/user")
+public class UserController {
     @Autowired
-    private RedisTemplate redisTemplate;
-    @RequestMapping("/")
-    public String index() {
+    private UserService userService;
 
-        return "hello controller";
+    @RequestMapping("/login")
+    public String login() {
+        userService.login("test", "test");
+        return "ok";
     }
 }

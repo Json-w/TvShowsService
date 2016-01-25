@@ -1,4 +1,4 @@
-- [ ] login when input valid user(test) and password(test) should return true
-- [ ] login when input wrong username and password should return false
-- [ ] login when input null or empty username and password return false
-- [ ] register when input invalid user return true
+- [x] login when input valid user(test) and password(test) should return true
+- [x] login when input wrong username and password should return false
+- [x] login when input null or empty username and password return false
+- [x] register when input invalid user return true
