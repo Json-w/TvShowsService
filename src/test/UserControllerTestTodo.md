@@ -3,4 +3,4 @@
  {"statusCode":"1","message":"success","token":"jjjsjk","user":{""...}}
  ```
  - [x] login invalid username and password should return failure json data.
- - [ ] register user with invalid data.
+ - [x] register user with invalid data.
