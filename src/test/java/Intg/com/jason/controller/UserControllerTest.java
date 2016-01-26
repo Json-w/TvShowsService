@@ -48,8 +48,8 @@ public class UserControllerTest {
         mockMvc.perform(post("/user/login").param("username", user.getUsername()).param("password", user.getPassword()))
                 .andExpect(status().isOk()).andDo(print())
                 .andExpect(jsonPath("$.statusCode").value(1))
-                .andExpect(jsonPath("$.message").value("success"))
-                .andExpect(jsonPath("$.user.username").value("testwp"));
+                .andExpect(jsonPath("$.statusDesc").value("success"))
+                .andExpect(jsonPath("$.data.user.username").value("testwp"));
 
     }
 
@@ -62,7 +62,7 @@ public class UserControllerTest {
         mockMvc.perform(post("/user/login").param("username", emptyUserInDB.getUsername()).param("password", emptyUserInDB.getPassword()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusCode").value(0))
-                .andExpect(jsonPath("$.message").value("failure"));
+                .andExpect(jsonPath("$.statusDesc").value("failure"));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class UserControllerTest {
         mockMvc.perform(post("/user/register").contentType(MediaType.APPLICATION_JSON).content(JSON.toJSONString(registerUser)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusCode").value(1))
-                .andExpect(jsonPath("$.message").value("success"));
+                .andExpect(jsonPath("$.statusDesc").value("success"));
 
     }
 }

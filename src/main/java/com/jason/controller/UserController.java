@@ -1,6 +1,8 @@
 package com.jason.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jason.model.ResponseData;
+import com.jason.model.Status;
 import com.jason.model.User;
 import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -18,31 +23,31 @@ public class UserController {
     private RedisTemplate redisTemplate;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user) {
-        JSONObject result = new JSONObject();
+    public ResponseData login(User user) {
+        ResponseData response = new ResponseData();
         if (!userService.login(user)) {
-            result.put("statusCode", 0);
-            result.put("message", "failure");
-            return result.toString();
+            response.setStatus(Status.FAILURE);
+            return response;
         }
-        result.put("token", redisTemplate.opsForValue().get(user.getUsername()));
-        result.put("statusCode", 1);
-        result.put("message", "success");
-        result.put("user", userService.find(user.getUsername()));
-        return result.toString();
+        response.setStatus(Status.SUCCESS);
+
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("token", redisTemplate.opsForValue().get(user.getUsername()));
+        data.put("user", userService.find(user.getUsername()));
+        response.setData(data);
+
+        return response;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(User user) {
-        JSONObject result = new JSONObject();
+    public ResponseData register(User user) {
+        ResponseData response = new ResponseData();
         if (userService.save(user)) {
-            result.put("statusCode", 1);
-            result.put("message", "success");
+            response.setStatus(Status.SUCCESS);
         } else {
-            result.put("statusCode", 0);
-            result.put("message", "failure");
+            response.setStatus(Status.FAILURE);
         }
-        return result.toString();
+        return response;
     }
 }
 
