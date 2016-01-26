@@ -21,16 +21,20 @@ public class UserServiceImpl implements UserService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public boolean login(String username, String password) {
-        User loginUser = userRepository.findByUsernameAndPassword(username, password);
-        if (null != loginUser) {
-            ValueOperations<String, String> opt = redisTemplate.opsForValue();
-            String uuid = UUID.randomUUID().toString();
-            opt.set(uuid, loginUser.getId() + "");
-            opt.set(username, uuid);
+    public boolean login(User user) {
+        User loginedUser = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        if (null != loginedUser) {
+            generateTokenAndSaveToCache(loginedUser);
             return true;
         }
         return false;
+    }
+
+    private void generateTokenAndSaveToCache(User loginedUser) {
+        ValueOperations<String, String> opt = redisTemplate.opsForValue();
+        String uuid = UUID.randomUUID().toString();
+        opt.set(uuid, loginedUser.getId() + "");
+        opt.set(loginedUser.getUsername(), uuid);
     }
 
 

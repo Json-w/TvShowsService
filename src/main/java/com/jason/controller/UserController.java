@@ -20,7 +20,7 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(User user) {
         JSONObject result = new JSONObject();
-        if (!userService.login(user.getUsername(), user.getPassword())) {
+        if (!userService.login(user)) {
             result.put("statusCode", 0);
             result.put("message", "failure");
             return result.toString();

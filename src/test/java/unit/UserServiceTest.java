@@ -27,31 +27,34 @@ public class UserServiceTest {
 
     @Test(expected = NullPointerException.class)
     public void should_throw_exception_when_input_valid_username_and_password_because_can_not_autowired_template_when_test() throws Exception {
-        String username = "test";
-        String password = "test";
+        User loginUser = new User();
+        loginUser.setUsername("test");
+        loginUser.setPassword("test");
         when(userRepository.findByUsernameAndPassword("test", "test")).thenReturn(new User());
 
-        boolean result = userService.login(username, password);
+        boolean result = userService.login(loginUser);
 
         assertThat(result, is(true));
     }
 
     @Test
     public void should_return_false_when_input_wrong_username_and_password() throws Exception {
-        String username = "wrong";
-        String password = "wrong";
+        User loginUser = new User();
+        loginUser.setUsername("wrong");
+        loginUser.setPassword("wrong");
         when(userRepository.findByUsernameAndPassword("wrong", "wrong")).thenReturn(null);
 
-        boolean result = userService.login(username, password);
+        boolean result = userService.login(loginUser);
 
         assertThat(result, is(false));
     }
 
     @Test
     public void should_return_false_when_input_null_username_or_password() throws Exception {
+        User loginUser = new User();
         when(userRepository.findByUsernameAndPassword(null, null)).thenReturn(null);
 
-        boolean result = userService.login(null, null);
+        boolean result = userService.login(loginUser);
 
         assertThat(result, is(false));
     }
