@@ -35,7 +35,7 @@ public class UserControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(UserController.class).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @Test
@@ -45,11 +45,40 @@ public class UserControllerTest {
         user.setPassword("testwp");
         userRepository.save(user);
 
-        mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON).content(JSON.toJSONString(user)))
+        mockMvc.perform(post("/user/login").param("username", user.getUsername()).param("password", user.getPassword()))
                 .andExpect(status().isOk()).andDo(print())
-                .andExpect(jsonPath("$.statusCode").value("1"))
+                .andExpect(jsonPath("$.statusCode").value(1))
                 .andExpect(jsonPath("$.message").value("success"))
                 .andExpect(jsonPath("$.user.username").value("testwp"));
+
+    }
+
+    @Test
+    public void should_return_login_failure_when_input_invalid_username_and_password() throws Exception {
+        User emptyUserInDB = new User();
+        emptyUserInDB.setUsername("test");
+        emptyUserInDB.setPassword("test");
+
+        mockMvc.perform(post("/user/login").param("username", emptyUserInDB.getUsername()).param("password", emptyUserInDB.getPassword()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(0))
+                .andExpect(jsonPath("$.message").value("failure"));
+    }
+
+    @Test
+    public void should_return_register_success_info_when_input_valid_info() throws Exception {
+        User tempUser = userRepository.findByUsername("test");
+        if (null != tempUser) {
+            userRepository.delete(tempUser.getId());
+        }
+        User registerUser = new User();
+        registerUser.setUsername("test");
+        registerUser.setPassword("test");
+
+        mockMvc.perform(post("/user/register").contentType(MediaType.APPLICATION_JSON).content(JSON.toJSONString(registerUser)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(1))
+                .andExpect(jsonPath("$.message").value("success"));
 
     }
 }

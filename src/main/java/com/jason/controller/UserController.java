@@ -5,7 +5,6 @@ import com.jason.model.User;
 import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,4 +31,18 @@ public class UserController {
         result.put("user", userService.find(user.getUsername()));
         return result.toString();
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(User user) {
+        JSONObject result = new JSONObject();
+        if (userService.save(user)) {
+            result.put("statusCode", 1);
+            result.put("message", "success");
+        } else {
+            result.put("statusCode", 0);
+            result.put("message", "failure");
+        }
+        return result.toString();
+    }
 }
+
