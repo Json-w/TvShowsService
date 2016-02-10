@@ -1,6 +1,5 @@
 package com.jason.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jason.model.ResponseData;
 import com.jason.model.Status;
 import com.jason.model.User;

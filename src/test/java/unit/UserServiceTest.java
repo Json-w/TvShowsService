@@ -13,17 +13,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
-public class UserServiceTest {
+public class UserServiceTest extends BaseJunitTest{
     @Mock
     private UserRepository userRepository;
     @InjectMocks
     private UserServiceImpl userService;
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
-    }
 
     @Test(expected = NullPointerException.class)
     public void should_throw_exception_when_input_valid_username_and_password_because_can_not_autowired_template_when_test() throws Exception {
