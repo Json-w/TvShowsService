@@ -17,6 +17,8 @@
             function(data,status){
                 alert(data);
                 console.log(data);
+                var json = $.parseJSON(data);
+                $("#latestTvShows").val($("#latestTvShows").val()+"&token="+json.data.token);
             },
             "html");
         });
@@ -27,16 +29,37 @@
                 console.log(data);
             },"html");
         });
+
+        $("#registerBtn").click(function(){
+            $.post($("#register").val(),
+            {
+                username:$("#registerUsername").val(),
+                password:$("#registerPassword").val()
+            },
+            function(data,status){
+                alert(data);
+                console.log(data);
+            },
+            "html");
+        });
     });
 
 
 </script>
 <body>
-hello world~
 <input id="loginText" type="text" value="http://localhost:8080/user/login" style="width:500px">
 <button id="loginBtn">登陆</button>
 <br>
-<input id="latestTvShows" type="text" value="http://localhost:8080/tvShow/listLatest?page=0&size=1&token=943746a5-6f26-4f11-93ce-b52c107568b3" style="width:500px">
+<input id="latestTvShows" type="text"
+       value="http://localhost:8080/tvShow/listLatest?page=0&size=10"
+       style="width:500px">
 <button id="latestTvShowsBtn">获取最近的美剧信息</button>
+<br>
+<input id="register" type="text"
+       value="http://localhost:8080/user/register"
+       style="width:500px">
+用户名:<input id="registerUsername">
+密码:<input id="registerPassword">
+<button id="registerBtn">注册</button>
 </body>
 </html>
