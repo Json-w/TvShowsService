@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
+    </script>
+</head>
+<script>
+    $(document).ready(function(){
+        $("#loginBtn").click(function(){
+            $.post($("#loginText").val(),
+            {
+                username:"wangpei",
+                password:"123456"
+            },
+            function(data,status){
+                alert(data);
+                console.log(data);
+            },
+            "html");
+        });
+
+        $("#latestTvShowsBtn").click(function(){
+            $.get($("#latestTvShows").val(),function(data,status){
+                alert(data);
+                console.log(data);
+            },"html");
+        });
+    });
+
+
+</script>
+<body>
+hello world~
+<input id="loginText" type="text" value="http://localhost:8080/user/login" style="width:500px">
+<button id="loginBtn">登陆</button>
+<br>
+<input id="latestTvShows" type="text" value="http://localhost:8080/tvShow/listLatest?page=0&size=1&token=943746a5-6f26-4f11-93ce-b52c107568b3" style="width:500px">
+<button id="latestTvShowsBtn">获取最近的美剧信息</button>
+</body>
+</html>

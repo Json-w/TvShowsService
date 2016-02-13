@@ -12,8 +12,7 @@ public class TvShow {
     @GeneratedValue
     private int id;
     private String name;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date showTime;
+    private String showTime;
     private String showPlatform;
     private String type;
     private String originName;
@@ -27,7 +26,7 @@ public class TvShow {
     public TvShow() {
     }
 
-    public TvShow(String comments, int id, String introduction, String name, String originName, String picture, String showPlatform, Date showTime, String type) {
+    public TvShow(String comments, int id, String introduction, String name, String originName, String picture, String showPlatform, String showTime, String type) {
         this.comments = comments;
         this.id = id;
         this.introduction = introduction;
@@ -39,11 +38,11 @@ public class TvShow {
         this.type = type;
     }
 
-    public Date getShowTime() {
+    public String getShowTime() {
         return showTime;
     }
 
-    public void setShowTime(Date showTime) {
+    public void setShowTime(String showTime) {
         this.showTime = showTime;
     }
 
