@@ -19,6 +19,7 @@
                 console.log(data);
                 var json = $.parseJSON(data);
                 $("#latestTvShows").val($("#latestTvShows").val()+"&token="+json.data.token);
+                $("#chooseTvShows").val($("#chooseTvShows").val()+"?token="+json.data.token);
             },
             "html");
         });
@@ -28,6 +29,10 @@
                 alert(data);
                 console.log(data);
             },"html");
+        });
+
+        $("#getImgBtn").click(function(){
+           window.location.href = $("#imgUrl").val();
         });
 
         $("#registerBtn").click(function(){
@@ -42,7 +47,19 @@
             },
             "html");
         });
+
+        $("#chooseTvShowsBtn").click(function(){
+            $.get($("#chooseTvShows").val(),
+                function(data,status){
+                    alert(data);
+                    console.log(data);
+                },
+                "html"
+            );
+        });
+
     });
+
 
 
 </script>
@@ -55,11 +72,17 @@
        style="width:500px">
 <button id="latestTvShowsBtn">获取最近的美剧信息</button>
 <br>
+<input id="imgUrl" type="text" value="http://localhost:8080/pics/14aip3l.jpg">
+<button id="getImgBtn">获取图片</button>
+<br>
 <input id="register" type="text"
        value="http://localhost:8080/user/register"
        style="width:500px">
 用户名:<input id="registerUsername">
 密码:<input id="registerPassword">
 <button id="registerBtn">注册</button>
+<br>
+<input id="chooseTvShows" type="text" value="http://localhost:8080/tvShow/listChooseTvShows/3" style="width:500px">
+<button id="chooseTvShowsBtn">获取用户选择关注的美剧信息</button>
 </body>
 </html>
