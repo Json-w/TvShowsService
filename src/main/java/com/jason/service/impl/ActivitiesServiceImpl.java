@@ -19,26 +19,34 @@ public class ActivitiesServiceImpl implements ActivitiesService {
 
     @Override
     public Page<Activities> findActivitiesByUserId(Pageable pageable, int userId) {
-        return null;
+        return activitiesRepository.findActivitiesByUserId(pageable, userId);
     }
 
     @Override
     public Page<Comments> findCommentsByActivityId(Pageable pageable, int activityId) {
-        return null;
+        return commentsRepository.findCommentsByActivityId(pageable, activityId);
     }
 
     @Override
     public boolean sendActivity(Activities activities) {
+        Activities savedActivity = activitiesRepository.save(activities);
+        if (savedActivity.getId() != 0) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public void deleteActivity(int activityId) {
-
+        activitiesRepository.delete(activityId);
     }
 
     @Override
     public boolean commentActivity(Comments comments) {
+        Comments savedComments = commentsRepository.save(comments);
+        if (savedComments.getId() != 0) {
+            return true;
+        }
         return false;
     }
 }
