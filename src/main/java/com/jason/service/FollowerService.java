@@ -1,6 +1,6 @@
 package com.jason.service;
 
-import com.jason.Follower;
+import com.jason.model.Follower;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

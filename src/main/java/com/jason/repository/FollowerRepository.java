@@ -1,5 +1,6 @@
-package com.jason;
+package com.jason.repository;
 
+import com.jason.model.Follower;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

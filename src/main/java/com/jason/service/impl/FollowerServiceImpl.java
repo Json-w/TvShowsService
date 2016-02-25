@@ -1,7 +1,7 @@
 package com.jason.service.impl;
 
-import com.jason.Follower;
-import com.jason.FollowerRepository;
+import com.jason.model.Follower;
+import com.jason.repository.FollowerRepository;
 import com.jason.service.FollowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

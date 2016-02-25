@@ -1,4 +1,4 @@
-package com.jason;
+package com.jason.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

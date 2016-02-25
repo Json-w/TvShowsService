@@ -1,6 +1,6 @@
 package com.jason.controller;
 
-import com.jason.Follower;
+import com.jason.model.Follower;
 import com.jason.model.ResponseData;
 import com.jason.model.Status;
 import com.jason.service.FollowerService;
