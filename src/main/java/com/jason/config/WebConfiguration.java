@@ -16,14 +16,16 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getAccessInterceptor()).excludePathPatterns("/user/login")
-                .excludePathPatterns("/user/register")
-                .excludePathPatterns("/pics/**");
+//        registry.addInterceptor(getAccessInterceptor()).excludePathPatterns("/user/login")
+//                .excludePathPatterns("/user/register")
+//                .excludePathPatterns("/pics/**");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/pics/**").addResourceLocations("file:/home/jason/python/graduateDesign/tvShowSpider/pics/");
+        // /root/graduateDesign/python/pics/
+        // /home/jason/python/graduateDesign/tvShowSpider/pics/
+        registry.addResourceHandler("/pics/**").addResourceLocations("file:/root/graduateDesign/python/pics/");
         super.addResourceHandlers(registry);
     }
 }
