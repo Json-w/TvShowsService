@@ -25,7 +25,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // /root/graduateDesign/python/pics/
         // /home/jason/python/graduateDesign/tvShowSpider/pics/
-        registry.addResourceHandler("/pics/**").addResourceLocations("file:/root/graduateDesign/python/pics/");
+        registry.addResourceHandler("/pics/**").addResourceLocations("file:/home/jason/python/graduateDesign/tvShowSpider/pics/");
         super.addResourceHandlers(registry);
     }
 }

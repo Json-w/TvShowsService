@@ -1,5 +1,7 @@
 package com.jason.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class Activities {
     @Column(name = "picture")
     private String picUrl;
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date releaseTime;
 
     public Activities() {
