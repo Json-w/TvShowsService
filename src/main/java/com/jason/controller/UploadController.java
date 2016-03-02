@@ -12,6 +12,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +29,8 @@ public class UploadController {
             BufferedOutputStream bos = null;
             try {
                 byte[] bytes = file.getBytes();
-                File uploadPicFullFile = new File("./activityPic/" + file.getOriginalFilename());
-                data.put("pictureUrl","/activityPic/"+uploadPicFullFile.getName());
+                File uploadPicFullFile = new File("./activityPic/" + URLDecoder.decode(file.getOriginalFilename(), "utf-8"));
+                data.put("pictureUrl", "/activityPic/" + uploadPicFullFile.getName());
                 if (!uploadPicFullFile.getParentFile().exists()) {
                     uploadPicFullFile.getParentFile().mkdir();
                 }
