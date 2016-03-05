@@ -6,6 +6,7 @@ import com.jason.model.User;
 import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,16 @@ public class UserController {
             response.setStatus(Status.FAILURE);
         }
         return response;
+    }
+
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    public ResponseData getInfo(@PathVariable int userId) {
+        ResponseData responseData = new ResponseData();
+        responseData.setStatus(Status.SUCCESS);
+        User user = userService.find(userId);
+        user.setPassword("");
+        responseData.setData(user);
+        return responseData;
     }
 }
 
