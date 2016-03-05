@@ -23,6 +23,11 @@ public class ActivitiesServiceImpl implements ActivitiesService {
     }
 
     @Override
+    public Page<Activities> findAllActivities(Pageable pageable) {
+        return activitiesRepository.findAll(pageable);
+    }
+
+    @Override
     public Page<Comments> findCommentsByActivityId(Pageable pageable, int activityId) {
         return commentsRepository.findCommentsByActivityId(pageable, activityId);
     }

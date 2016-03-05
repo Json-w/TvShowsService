@@ -41,6 +41,19 @@ public class ActivitiesController {
         return responseData;
     }
 
+    @RequestMapping(value = "/all")
+    public ResponseData getAllActivities(int page, int size) {
+        ResponseData responseData = new ResponseData();
+        Page<Activities> findResult = activitiesService.findAllActivities(new PageRequest(page, size));
+        if (findResult != null) {
+            responseData.setStatus(Status.SUCCESS);
+        } else {
+            responseData.setStatus(Status.FAILURE);
+        }
+        responseData.setData(findResult);
+        return responseData;
+    }
+
     @RequestMapping(value = "/send", method = RequestMethod.POST)
     public ResponseData sendActivity(Activities activitie) {
         ResponseData responseData = new ResponseData();

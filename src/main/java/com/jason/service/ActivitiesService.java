@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 public interface ActivitiesService {
     Page<Activities> findActivitiesByUserId(Pageable pageable, int userId);
 
+    Page<Activities> findAllActivities(Pageable pageable);
+
     Page<Comments> findCommentsByActivityId(Pageable pageable, int activityId);
 
     boolean sendActivity(Activities activities);
