@@ -8,4 +8,6 @@ public interface UserService {
     boolean save(User user);
 
     User find(String username);
+
+    User find(int id);
 }
