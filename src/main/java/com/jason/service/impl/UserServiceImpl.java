@@ -40,7 +40,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean save(User user) {
-        return null != userRepository.save(user);
+        if (null == userRepository.findByUsername(user.getUsername())) {
+            return null != userRepository.save(user);
+        }
+        return false;
     }
 
     @Override

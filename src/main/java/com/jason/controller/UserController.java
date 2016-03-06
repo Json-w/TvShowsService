@@ -59,5 +59,16 @@ public class UserController {
         responseData.setData(user);
         return responseData;
     }
+
+    @RequestMapping(value = "/checkUsernameIfRepeat/{username}", method = RequestMethod.GET)
+    public ResponseData checkUsernameIfRepeat(@PathVariable String username) {
+        ResponseData responseData = new ResponseData();
+        if (null == userService.find(username)) {
+            responseData.setStatus(Status.SUCCESS);
+        } else {
+            responseData.setStatus(Status.FAILURE);
+        }
+        return responseData;
+    }
 }
 
