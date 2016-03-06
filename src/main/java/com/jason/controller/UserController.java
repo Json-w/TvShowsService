@@ -1,5 +1,7 @@
 package com.jason.controller;
 
+import com.jason.mail.MailSenderFactory;
+import com.jason.mail.SimpleMailSender;
 import com.jason.model.ResponseData;
 import com.jason.model.Status;
 import com.jason.model.User;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -65,6 +72,34 @@ public class UserController {
         ResponseData responseData = new ResponseData();
         if (null == userService.find(username)) {
             responseData.setStatus(Status.SUCCESS);
+        } else {
+            responseData.setStatus(Status.FAILURE);
+        }
+        return responseData;
+    }
+
+    @RequestMapping(value = "/findPassword/{userId}", method = RequestMethod.GET)
+    public ResponseData findPassword(@PathVariable int userId, HttpServletRequest request) throws MessagingException {
+        ResponseData responseData = new ResponseData();
+        Map<String, String> data = new HashMap<>();
+        UUID uuid = UUID.randomUUID();
+        redisTemplate.opsForValue().set(userId+"", uuid);
+        SimpleMailSender simpleMailSender = MailSenderFactory.getSimpleMailSender();
+        User user = userService.find(userId);
+        simpleMailSender.send(user.getEmail(), "密码找回", "请访问链接:" + "localhost:8081/findPassword.html?userId=" + user.getId() + "&uuid=" + uuid);
+        return responseData;
+    }
+
+    @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
+    public ResponseData changePwd(int userId, String uuid, String password, HttpServletRequest request) {
+        ResponseData responseData = new ResponseData();
+        if (redisTemplate.opsForValue().get(userId+"").equals(uuid)) {
+            responseData.setStatus(Status.SUCCESS);
+            User user = userService.find(userId);
+            if (user != null) {
+                user.setPassword(password);
+                userService.update(user);
+            }
         } else {
             responseData.setStatus(Status.FAILURE);
         }

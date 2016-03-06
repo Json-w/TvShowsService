@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService {
     public User find(int id) {
         return userRepository.findOne(id);
     }
+
+    @Override
+    public boolean update(User user) {
+        return null == userRepository.save(user);
+    }
 }

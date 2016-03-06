@@ -12,20 +12,18 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private int chooseTvShowId;
-    private int activitiesId;
-    private int follwerId;
+    private String email;
+    private String portraitUrl;
 
-    public User(int id, String username, String password, int chooseTvShowId, int activitiesId, int follwerId) {
+    public User() {
+    }
+
+    public User(int id, String username, String password, String email, String portraitUrl) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.chooseTvShowId = chooseTvShowId;
-        this.activitiesId = activitiesId;
-        this.follwerId = follwerId;
-    }
-
-    public User() {
+        this.email = email;
+        this.portraitUrl = portraitUrl;
     }
 
     public int getId() {
@@ -52,27 +50,19 @@ public class User {
         this.password = password;
     }
 
-    public int getChooseTvShowId() {
-        return chooseTvShowId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setChooseTvShowId(int chooseTvShowId) {
-        this.chooseTvShowId = chooseTvShowId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getActivitiesId() {
-        return activitiesId;
+    public String getPortraitUrl() {
+        return portraitUrl;
     }
 
-    public void setActivitiesId(int activitiesId) {
-        this.activitiesId = activitiesId;
-    }
-
-    public int getFollwerId() {
-        return follwerId;
-    }
-
-    public void setFollwerId(int follwerId) {
-        this.follwerId = follwerId;
+    public void setPortraitUrl(String portraitUrl) {
+        this.portraitUrl = portraitUrl;
     }
 }

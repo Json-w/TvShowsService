@@ -10,4 +10,6 @@ public interface UserService {
     User find(String username);
 
     User find(int id);
+
+    boolean update(User user);
 }
