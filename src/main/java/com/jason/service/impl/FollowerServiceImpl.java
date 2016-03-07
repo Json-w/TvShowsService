@@ -25,4 +25,14 @@ public class FollowerServiceImpl implements FollowerService {
         }
         return false;
     }
+
+    @Override
+    public int countFollowersNum(int userId) {
+        return (int) followerRepository.countByUserId(userId);
+    }
+
+    @Override
+    public int countFollowingNum(int userId) {
+        return (int) followerRepository.countByFollowerUserId(userId);
+    }
 }

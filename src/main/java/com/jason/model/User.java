@@ -3,6 +3,7 @@ package com.jason.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class User {
@@ -14,16 +15,22 @@ public class User {
     private String password;
     private String email;
     private String portraitUrl;
+    @Transient
+    private int followersNum;
+    @Transient
+    private int followingNum;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String email, String portraitUrl) {
+    public User(int id, String username, String password, String email, String portraitUrl, int followersNum, int followingNum) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.portraitUrl = portraitUrl;
+        this.followersNum = followersNum;
+        this.followingNum = followingNum;
     }
 
     public int getId() {
@@ -64,5 +71,21 @@ public class User {
 
     public void setPortraitUrl(String portraitUrl) {
         this.portraitUrl = portraitUrl;
+    }
+
+    public int getFollowersNum() {
+        return followersNum;
+    }
+
+    public void setFollowersNum(int followersNum) {
+        this.followersNum = followersNum;
+    }
+
+    public int getFollowingNum() {
+        return followingNum;
+    }
+
+    public void setFollowingNum(int followingNum) {
+        this.followingNum = followingNum;
     }
 }

@@ -9,4 +9,7 @@ public interface FollowerService {
 
     boolean followUser(Follower follower);
 
+    int countFollowersNum(int userId);
+
+    int countFollowingNum(int userId);
 }

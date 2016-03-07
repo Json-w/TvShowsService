@@ -5,6 +5,7 @@ import com.jason.mail.SimpleMailSender;
 import com.jason.model.ResponseData;
 import com.jason.model.Status;
 import com.jason.model.User;
+import com.jason.service.FollowerService;
 import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,6 +29,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private FollowerService followerService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseData login(User user) {
@@ -62,6 +65,8 @@ public class UserController {
         ResponseData responseData = new ResponseData();
         responseData.setStatus(Status.SUCCESS);
         User user = userService.find(userId);
+        user.setFollowersNum(followerService.countFollowersNum(userId));
+        user.setFollowingNum(followerService.countFollowingNum(userId));
         user.setPassword("");
         responseData.setData(user);
         return responseData;
@@ -83,7 +88,7 @@ public class UserController {
         ResponseData responseData = new ResponseData();
         Map<String, String> data = new HashMap<>();
         UUID uuid = UUID.randomUUID();
-        redisTemplate.opsForValue().set(userId+"", uuid);
+        redisTemplate.opsForValue().set(userId + "", uuid);
         SimpleMailSender simpleMailSender = MailSenderFactory.getSimpleMailSender();
         User user = userService.find(userId);
         simpleMailSender.send(user.getEmail(), "密码找回", "请访问链接:" + "localhost:8081/findPassword.html?userId=" + user.getId() + "&uuid=" + uuid);
@@ -93,7 +98,7 @@ public class UserController {
     @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
     public ResponseData changePwd(int userId, String uuid, String password, HttpServletRequest request) {
         ResponseData responseData = new ResponseData();
-        if (redisTemplate.opsForValue().get(userId+"").equals(uuid)) {
+        if (redisTemplate.opsForValue().get(userId + "").equals(uuid)) {
             responseData.setStatus(Status.SUCCESS);
             User user = userService.find(userId);
             if (user != null) {
