@@ -17,16 +17,19 @@ public class Activities {
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date releaseTime;
+    @Transient
+    private User user;
 
     public Activities() {
     }
 
-    public Activities(int id, int userId, String content, String picUrl, Date releaseTime) {
+    public Activities(int id, int userId, String content, String picUrl, Date releaseTime, User user) {
         this.id = id;
         this.userId = userId;
         this.content = content;
         this.picUrl = picUrl;
         this.releaseTime = releaseTime;
+        this.user = user;
     }
 
     public int getId() {
@@ -67,5 +70,13 @@ public class Activities {
 
     public void setReleaseTime(Date releaseTime) {
         this.releaseTime = releaseTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

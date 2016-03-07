@@ -46,6 +46,9 @@ public class ActivitiesController {
         ResponseData responseData = new ResponseData();
         Page<Activities> findResult = activitiesService.findAllActivities(new PageRequest(page, size));
         if (findResult != null) {
+            for (Activities activities : findResult) {
+                activities.setUser(userService.find(activities.getUserId()));
+            }
             responseData.setStatus(Status.SUCCESS);
         } else {
             responseData.setStatus(Status.FAILURE);
