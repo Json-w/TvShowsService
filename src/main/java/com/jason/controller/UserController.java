@@ -7,6 +7,7 @@ import com.jason.model.Status;
 import com.jason.model.User;
 import com.jason.service.FollowerService;
 import com.jason.service.UserService;
+import com.jason.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -110,5 +111,24 @@ public class UserController {
         }
         return responseData;
     }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseData updateUser(User user) {
+        ResponseData responseData = new ResponseData();
+        if (!StringUtil.isNull(user.getPassword())) {
+            if (!checkPwd(user)) {
+                responseData.setStatus(Status.FAILURE);
+                return responseData;
+            }
+        }
+        userService.update(user);
+        responseData.setStatus(Status.SUCCESS);
+        return responseData;
+    }
+
+    private boolean checkPwd(User user) {
+        return userService.find(user.getId()).getPassword().equals(user.getPassword());
+    }
 }
+
 
