@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ChooseTvShowRepository extends PagingAndSortingRepository<ChooseTvShow, Integer> {
     Page<ChooseTvShow> findChooseTvShowsByUserId(Pageable queryCondition, int userId);
+
+    ChooseTvShow findChooseTvShowByTvShowNameAndUserId(String tvShowname, int userId);
 }

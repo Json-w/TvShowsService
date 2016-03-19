@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     private Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
@@ -58,6 +60,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(User user) {
-        return null == userRepository.save(user);
+        return userRepository.updateUser(user.getUsername(), user.getEmail(), user.getPortraitUrl(), user.getId()) > 0;
+    }
+
+    @Override
+    public boolean updatePwd(User user, String newPwd) {
+        return userRepository.updatePwd(newPwd, user.getId()) > 0;
     }
 }

@@ -96,8 +96,8 @@ public class UserController {
         return responseData;
     }
 
-    @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
-    public ResponseData changePwd(int userId, String uuid, String password, HttpServletRequest request) {
+    @RequestMapping(value = "/findPwd", method = RequestMethod.POST)
+    public ResponseData findPwd(int userId, String uuid, String password, HttpServletRequest request) {
         ResponseData responseData = new ResponseData();
         if (redisTemplate.opsForValue().get(userId + "").equals(uuid)) {
             responseData.setStatus(Status.SUCCESS);
@@ -129,6 +129,22 @@ public class UserController {
     private boolean checkPwd(User user) {
         return userService.find(user.getId()).getPassword().equals(user.getPassword());
     }
+
+    @RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
+    public ResponseData updatePwd(User user, String newPwd) {
+        ResponseData responseData = new ResponseData();
+        if (!checkPwd(user)) {
+            responseData.setStatus(Status.FAILURE);
+            return responseData;
+        }
+        if (userService.updatePwd(user, newPwd)) {
+            responseData.setStatus(Status.SUCCESS);
+        } else {
+            responseData.setStatus(Status.FAILURE);
+        }
+        return responseData;
+    }
+
 }
 
 

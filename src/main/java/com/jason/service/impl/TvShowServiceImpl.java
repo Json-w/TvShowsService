@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class TvShowServiceImpl implements TvShowService {
     @Autowired
@@ -26,5 +28,22 @@ public class TvShowServiceImpl implements TvShowService {
     @Override
     public Page<ChooseTvShow> findChooseTvShowByUserId(Pageable pageable, int useId) {
         return chooseTvShowRepository.findChooseTvShowsByUserId(pageable, useId);
+    }
+
+    @Override
+    public void collectTvShow(String tvShowname, int userId) {
+        ChooseTvShow chooseTvShow = new ChooseTvShow();
+        chooseTvShow.setAddTime(new Date());
+        chooseTvShow.setUserId(userId);
+        chooseTvShow.setTvShowName(tvShowname);
+        chooseTvShowRepository.save(chooseTvShow);
+    }
+
+    @Override
+    public boolean checkIfCollected(String tvShowname, int userId) {
+        if (chooseTvShowRepository.findChooseTvShowByTvShowNameAndUserId(tvShowname, userId) != null) {
+            return true;
+        }
+        return false;
     }
 }

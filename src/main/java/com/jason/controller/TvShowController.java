@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/tvShow")
 public class TvShowController {
@@ -35,7 +38,7 @@ public class TvShowController {
 
     @RequestMapping("/listChooseTvShows/{userId}")
     public ResponseData listChooseTvShowsByUserId(@PathVariable int userId, int page, int size) {
-        PageRequest pageRequest = new PageRequest(page,size);
+        PageRequest pageRequest = new PageRequest(page, size);
         ResponseData responseData = new ResponseData();
         Page<ChooseTvShow> findResult = tvShowService.findChooseTvShowByUserId(pageRequest, userId);
         if (null != findResult) {
@@ -43,6 +46,29 @@ public class TvShowController {
             responseData.setData(findResult);
         } else {
             responseData.setStatus(Status.FAILURE);
+        }
+        return responseData;
+    }
+
+    @RequestMapping("/{tvShowName}/{userId}")
+    public ResponseData collecteTvShow(@PathVariable String tvShowName, @PathVariable int userId) {
+        ResponseData responseData = new ResponseData();
+        tvShowService.collectTvShow(tvShowName, userId);
+        responseData.setStatus(Status.SUCCESS);
+        return responseData;
+    }
+
+    @RequestMapping("/checkIfCollected/{tvShowName}/{userId}")
+    public ResponseData checkIfCollected(@PathVariable String tvShowName, @PathVariable int userId) {
+        ResponseData responseData = new ResponseData();
+        responseData.setStatus(Status.SUCCESS);
+        Map<String, Boolean> data = new HashMap<>();
+        if (tvShowService.checkIfCollected(tvShowName, userId)) {
+            data.put("result", true);
+            responseData.setData(data);
+        } else {
+            data.put("result", false);
+            responseData.setData(data);
         }
         return responseData;
     }

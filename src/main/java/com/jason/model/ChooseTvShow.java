@@ -9,17 +9,17 @@ public class ChooseTvShow {
     @GeneratedValue
     private int id;
     private int userId;
-    private int tvShowId;
+    private String tvShowName;
     @Temporal(TemporalType.TIMESTAMP)
     private Date addTime;
 
     public ChooseTvShow() {
     }
 
-    public ChooseTvShow(int id, int userId, int tvShowId, Date addTime) {
+    public ChooseTvShow(int id, int userId, String tvShowName, Date addTime) {
         this.id = id;
         this.userId = userId;
-        this.tvShowId = tvShowId;
+        this.tvShowName = tvShowName;
         this.addTime = addTime;
     }
 
@@ -39,19 +39,19 @@ public class ChooseTvShow {
         this.id = id;
     }
 
-    public int getTvShowId() {
-        return tvShowId;
-    }
-
-    public void setTvShowId(int tvShowId) {
-        this.tvShowId = tvShowId;
-    }
-
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getTvShowName() {
+        return tvShowName;
+    }
+
+    public void setTvShowName(String tvShowName) {
+        this.tvShowName = tvShowName;
     }
 }

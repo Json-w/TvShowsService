@@ -12,4 +12,6 @@ public interface UserService {
     User find(int id);
 
     boolean update(User user);
+
+    boolean updatePwd(User user, String newPwd);
 }

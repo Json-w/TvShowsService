@@ -9,4 +9,8 @@ public interface TvShowService {
     Page<TvShow> findLatestTvShows(Pageable pageable);
 
     Page<ChooseTvShow> findChooseTvShowByUserId(Pageable pageable, int userId);
+
+    void collectTvShow(String tvShowname, int userId);
+
+    boolean checkIfCollected(String tvShowname, int userId);
 }
