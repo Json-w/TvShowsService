@@ -12,6 +12,8 @@ public class ChooseTvShow {
     private String tvShowName;
     @Temporal(TemporalType.TIMESTAMP)
     private Date addTime;
+    @Transient
+    private TvShow tvShow;
 
     public ChooseTvShow() {
     }
@@ -53,5 +55,13 @@ public class ChooseTvShow {
 
     public void setTvShowName(String tvShowName) {
         this.tvShowName = tvShowName;
+    }
+
+    public TvShow getTvShow() {
+        return tvShow;
+    }
+
+    public void setTvShow(TvShow tvShow) {
+        this.tvShow = tvShow;
     }
 }

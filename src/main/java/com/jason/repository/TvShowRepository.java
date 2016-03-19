@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TvShowRepository extends PagingAndSortingRepository<TvShow, Integer> {
+    TvShow findTvShowByName(String name);
 }

@@ -27,7 +27,11 @@ public class TvShowServiceImpl implements TvShowService {
 
     @Override
     public Page<ChooseTvShow> findChooseTvShowByUserId(Pageable pageable, int useId) {
-        return chooseTvShowRepository.findChooseTvShowsByUserId(pageable, useId);
+        Page<ChooseTvShow> result = chooseTvShowRepository.findChooseTvShowsByUserId(pageable, useId);
+        for (ChooseTvShow chooseTvShow : result.getContent()) {
+            chooseTvShow.setTvShow(tvShowRepository.findTvShowByName(chooseTvShow.getTvShowName()));
+        }
+        return result;
     }
 
     @Override
