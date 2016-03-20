@@ -11,4 +11,6 @@ public interface ChooseTvShowRepository extends PagingAndSortingRepository<Choos
     Page<ChooseTvShow> findChooseTvShowsByUserId(Pageable queryCondition, int userId);
 
     ChooseTvShow findChooseTvShowByTvShowNameAndUserId(String tvShowname, int userId);
+
+    void deleteChooseTvShowByTvShowNameAndUserId(String tvShowname, int userId);
 }

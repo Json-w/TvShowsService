@@ -13,4 +13,6 @@ public interface TvShowService {
     void collectTvShow(String tvShowname, int userId);
 
     boolean checkIfCollected(String tvShowname, int userId);
+
+    void deleteChooseTvShow(String tvShowname, int userId);
 }

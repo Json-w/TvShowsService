@@ -73,4 +73,11 @@ public class TvShowController {
         return responseData;
     }
 
+    @RequestMapping("/deleteChooseTvShow/{tvShowName}/{userId}")
+    public ResponseData deleteChooseTvShow(@PathVariable String tvShowName, @PathVariable int userId) {
+        ResponseData responseData = new ResponseData();
+        tvShowService.deleteChooseTvShow(tvShowName, userId);
+        responseData.setStatus(Status.SUCCESS);
+        return responseData;
+    }
 }

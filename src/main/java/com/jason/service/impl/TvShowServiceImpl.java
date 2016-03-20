@@ -10,9 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
+@Transactional
 public class TvShowServiceImpl implements TvShowService {
     @Autowired
     private TvShowRepository tvShowRepository;
@@ -50,4 +52,11 @@ public class TvShowServiceImpl implements TvShowService {
         }
         return false;
     }
+
+    @Override
+    public void deleteChooseTvShow(String tvShowname, int userId) {
+        chooseTvShowRepository.deleteChooseTvShowByTvShowNameAndUserId(tvShowname, userId);
+    }
+
+
 }
