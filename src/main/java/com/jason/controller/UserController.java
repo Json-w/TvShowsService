@@ -44,7 +44,9 @@ public class UserController {
 
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("token", redisTemplate.opsForValue().get(user.getUsername()));
-        data.put("user", userService.find(user.getUsername()));
+        User responseUser = userService.find(user.getUsername());
+        responseUser.setPassword("");
+        data.put("user", responseUser);
         response.setData(data);
 
         return response;
