@@ -35,4 +35,9 @@ public class FollowerServiceImpl implements FollowerService {
     public int countFollowingNum(int userId) {
         return (int) followerRepository.countByFollowerUserId(userId);
     }
+
+    @Override
+    public Iterable<Follower> findFollowingByUserId(int userId) {
+        return followerRepository.findFolloweingByUserId(userId);
+    }
 }

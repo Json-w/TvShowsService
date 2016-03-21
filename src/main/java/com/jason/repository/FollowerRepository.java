@@ -3,6 +3,7 @@ package com.jason.repository;
 import com.jason.model.Follower;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,7 @@ public interface FollowerRepository extends PagingAndSortingRepository<Follower,
     long countByUserId(int userId);
 
     long countByFollowerUserId(int followerUserId);
+
+    @Query("select f from Follower f where f.followerUserId = ?1")
+    Iterable<Follower> findFolloweingByUserId(int userId);
 }

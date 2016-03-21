@@ -3,7 +3,9 @@ package com.jason.controller;
 import com.jason.model.Follower;
 import com.jason.model.ResponseData;
 import com.jason.model.Status;
+import com.jason.model.User;
 import com.jason.service.FollowerService;
+import com.jason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowerController {
     @Autowired
     private FollowerService followerService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public ResponseData findFollowersByUserId(@PathVariable int userId, int page, int size) {
@@ -28,6 +32,20 @@ public class FollowerController {
             responseData.setStatus(Status.SUCCESS);
             responseData.setData(findResult);
         }
+        return responseData;
+    }
+
+    @RequestMapping(value = "/following/{userId}")
+    public ResponseData findFollowingByUserId(@PathVariable int userId) {
+        ResponseData responseData = new ResponseData();
+        responseData.setStatus(Status.SUCCESS);
+        Iterable<Follower> resultFollowing = followerService.findFollowingByUserId(userId);
+        for (Follower follower : resultFollowing) {
+            User followingUser = userService.find(follower.getUserId());
+            followingUser.setPassword("");
+            follower.setFollowingUser(followingUser);
+        }
+        responseData.setData(resultFollowing);
         return responseData;
     }
 

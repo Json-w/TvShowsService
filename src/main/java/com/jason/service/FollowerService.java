@@ -12,4 +12,6 @@ public interface FollowerService {
     int countFollowersNum(int userId);
 
     int countFollowingNum(int userId);
+
+    Iterable<Follower> findFollowingByUserId(int userId);
 }
