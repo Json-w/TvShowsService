@@ -49,6 +49,20 @@ public class FollowerController {
         return responseData;
     }
 
+    @RequestMapping(value = "/follower/{userId}")
+    public ResponseData findFollowerByUserId(@PathVariable int userId) {
+        ResponseData responseData = new ResponseData();
+        responseData.setStatus(Status.SUCCESS);
+        Iterable<Follower> resultFollower = followerService.findFollowersByUserId(userId);
+        for (Follower follower : resultFollower) {
+            User followerUser = userService.find(follower.getFollowerUserId());
+            followerUser.setPassword("");
+            follower.setFollower(followerUser);
+        }
+        responseData.setData(resultFollower);
+        return responseData;
+    }
+
     @RequestMapping(value = "/followUser", method = RequestMethod.POST)
     public ResponseData followUser(Follower follower) {
         ResponseData responseData = new ResponseData();
@@ -60,4 +74,11 @@ public class FollowerController {
         return responseData;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseData cancelFollow(@PathVariable int id) {
+        ResponseData responseData = new ResponseData();
+        responseData.setStatus(Status.SUCCESS);
+        followerService.cancelFollow(id);
+        return responseData;
+    }
 }

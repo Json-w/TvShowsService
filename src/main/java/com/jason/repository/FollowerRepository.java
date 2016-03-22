@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface FollowerRepository extends PagingAndSortingRepository<Follower, Integer> {
     Page<Follower> findFollowersByUserId(Pageable pageable, int userId);
 
+    Iterable<Follower> findFollowersByUserId(int userId);
+
     long countByUserId(int userId);
 
     long countByFollowerUserId(int followerUserId);

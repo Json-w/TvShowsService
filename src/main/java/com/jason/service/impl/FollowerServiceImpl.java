@@ -19,6 +19,11 @@ public class FollowerServiceImpl implements FollowerService {
     }
 
     @Override
+    public Iterable<Follower> findFollowersByUserId(int userId) {
+        return followerRepository.findFollowersByUserId(userId);
+    }
+
+    @Override
     public boolean followUser(Follower follower) {
         if (followerRepository.save(follower).getId() > -1) {
             return true;
@@ -39,5 +44,10 @@ public class FollowerServiceImpl implements FollowerService {
     @Override
     public Iterable<Follower> findFollowingByUserId(int userId) {
         return followerRepository.findFolloweingByUserId(userId);
+    }
+
+    @Override
+    public void cancelFollow(int id) {
+        followerRepository.delete(id);
     }
 }
