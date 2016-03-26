@@ -48,6 +48,11 @@ public class ActivitiesController {
         if (findResult != null) {
             for (Activities activities : findResult) {
                 activities.setUser(userService.find(activities.getUserId()));
+                Iterable<Comments> comments = activitiesService.findCommentsByActivityId(activities.getId());
+                for (Comments comment : comments) {
+                    comment.setCommentUser(userService.find(comment.getCommentUserId()));
+                }
+                activities.setComments(comments);
             }
             responseData.setStatus(Status.SUCCESS);
         } else {

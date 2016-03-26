@@ -33,6 +33,11 @@ public class ActivitiesServiceImpl implements ActivitiesService {
     }
 
     @Override
+    public Iterable<Comments> findCommentsByActivityId(int activityId) {
+        return commentsRepository.findCommentsByActivityId(activityId);
+    }
+
+    @Override
     public boolean sendActivity(Activities activities) {
         Activities savedActivity = activitiesRepository.save(activities);
         if (savedActivity.getId() != 0) {

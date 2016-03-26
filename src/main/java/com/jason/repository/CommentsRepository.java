@@ -7,4 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CommentsRepository extends PagingAndSortingRepository<Comments, Integer> {
     Page<Comments> findCommentsByActivityId(Pageable pageable, int activityId);
+
+    Iterable<Comments> findCommentsByActivityId(int activityId);
 }

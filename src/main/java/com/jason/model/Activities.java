@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Activities {
@@ -19,6 +20,8 @@ public class Activities {
     private Date releaseTime;
     @Transient
     private User user;
+    @Transient
+    private Iterable<Comments> comments;
 
     public Activities() {
     }
@@ -78,5 +81,13 @@ public class Activities {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Iterable<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(Iterable<Comments> comments) {
+        this.comments = comments;
     }
 }

@@ -12,6 +12,8 @@ public interface ActivitiesService {
 
     Page<Comments> findCommentsByActivityId(Pageable pageable, int activityId);
 
+    Iterable<Comments> findCommentsByActivityId(int activityId);
+
     boolean sendActivity(Activities activities);
 
     void deleteActivity(int activityId);

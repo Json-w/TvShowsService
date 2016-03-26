@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Comments {
@@ -15,6 +16,8 @@ public class Comments {
     @Type(type = "text")
     private String commentContent;
     private int commentUserId;
+    @Transient
+    private User commentUser;
 
     public Comments() {
     }
@@ -56,5 +59,13 @@ public class Comments {
 
     public void setCommentUserId(int commentUserId) {
         this.commentUserId = commentUserId;
+    }
+
+    public User getCommentUser() {
+        return commentUser;
+    }
+
+    public void setCommentUser(User commentUser) {
+        this.commentUser = commentUser;
     }
 }
