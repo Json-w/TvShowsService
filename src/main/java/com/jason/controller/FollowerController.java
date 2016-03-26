@@ -58,6 +58,7 @@ public class FollowerController {
             User followerUser = userService.find(follower.getFollowerUserId());
             followerUser.setPassword("");
             follower.setFollower(followerUser);
+            follower.setInterFollow(followerService.checkIfInterFollow(userId, follower.getFollowerUserId()));
         }
         responseData.setData(resultFollower);
         return responseData;

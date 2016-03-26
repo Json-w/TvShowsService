@@ -19,4 +19,7 @@ public interface FollowerRepository extends PagingAndSortingRepository<Follower,
 
     @Query("select f from Follower f where f.followerUserId = ?1")
     Iterable<Follower> findFolloweingByUserId(int userId);
+
+    @Query("select f from Follower f where f.userId = ?1 and f.followerUserId = ?2")
+    Follower findFollowerByUserIdAndFollowerId(int userId, int followerId);
 }

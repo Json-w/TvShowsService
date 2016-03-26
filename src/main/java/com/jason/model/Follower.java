@@ -16,6 +16,8 @@ public class Follower {
     private User followingUser;
     @Transient
     private User follower;
+    @Transient
+    private boolean interFollow;
 
     public Follower(int id, int userId, int followerUserId) {
         this.id = id;
@@ -64,5 +66,13 @@ public class Follower {
 
     public void setFollowingUser(User followingUser) {
         this.followingUser = followingUser;
+    }
+
+    public boolean isInterFollow() {
+        return interFollow;
+    }
+
+    public void setInterFollow(boolean interFollow) {
+        this.interFollow = interFollow;
     }
 }

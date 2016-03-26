@@ -50,4 +50,13 @@ public class FollowerServiceImpl implements FollowerService {
     public void cancelFollow(int id) {
         followerRepository.delete(id);
     }
+
+    @Override
+    public boolean checkIfInterFollow(int userId, int followerId) {
+        if (followerRepository.findFollowerByUserIdAndFollowerId(userId, followerId) != null &&
+                followerRepository.findFollowerByUserIdAndFollowerId(followerId, userId) != null) {
+            return true;
+        }
+        return false;
+    }
 }

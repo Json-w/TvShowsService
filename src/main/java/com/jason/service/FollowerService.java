@@ -18,4 +18,6 @@ public interface FollowerService {
     Iterable<Follower> findFollowingByUserId(int userId);
 
     void cancelFollow(int id);
+
+    boolean checkIfInterFollow(int userId, int followerId);
 }
