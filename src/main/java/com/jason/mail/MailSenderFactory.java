@@ -6,7 +6,7 @@ public class MailSenderFactory {
     public static SimpleMailSender getSimpleMailSender() {
         if (simpleMailSender == null) {
 
-            simpleMailSender = new SimpleMailSender("wangpei9679@163.com", "d4mnkret314");
+            simpleMailSender = new SimpleMailSender("wangpei9679@163.com", "xxxx");
         }
         return simpleMailSender;
     }
